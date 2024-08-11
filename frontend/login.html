@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="min-h-screen flex items-center justify-center">
+      <div class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm mx-auto">
+        <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+
+        <div class="mb-4">
+          <label for="email" class="block text-sm font-semibold mb-2"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block text-sm font-semibold mb-2"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter your password"
+            required
+          />
+        </div>
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <input
+              type="checkbox"
+              id="remember"
+              class="form-checkbox text-indigo-500"
+            />
+            <label for="remember" class="ml-2 text-sm">Remember me</label>
+          </div>
+          <a href="#" class="text-sm text-indigo-500 hover:underline"
+            >Forgot Password?</a
+          >
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          onclick="handleLogin()"
+        >
+          Login
+        </button>
+
+        <p class="mt-6 text-sm text-center">
+          Don't have an account?
+          <a
+            href="/frontend/register.html"
+            class="text-indigo-500 hover:underline"
+            >Register</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function handleLogin() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      axios
+        .post("http://localhost/Login", {
+          email: email,
+          password: password,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            alert(res.data.message);
+            localStorage.setItem("token", res.data.token);
+            window.location.href = "/frontend/welcome.html";
+          } else {
+            alert(res.data.message);
+          }
+        });
+    }
+  </script>
+</html>

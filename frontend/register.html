@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <div class="min-h-screen flex items-center justify-center">
+      <!-- Register Form (Initially Hidden) -->
+      <div
+        class="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-sm mx-auto mt-8"
+      >
+        <h2 class="text-2xl font-bold mb-6 text-center">Register</h2>
+
+        <div class="mb-4">
+          <label for="name" class="block text-sm font-semibold mb-2"
+            >Name</label
+          >
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+        <div class="mb-4">
+          <label for="email-register" class="block text-sm font-semibold mb-2"
+            >Email</label
+          >
+          <input
+            type="email"
+            id="email-register"
+            name="email-register"
+            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div class="mb-6">
+          <label
+            for="password-register"
+            class="block text-sm font-semibold mb-2"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password-register"
+            name="password-register"
+            class="w-full px-4 py-2 bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            placeholder="Create a password"
+            required
+          />
+        </div>
+        <button
+          onclick="HandleRegister()"
+          type="submit"
+          class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          Register
+        </button>
+
+        <p class="mt-6 text-sm text-center">
+          Already have an account?
+          <a href="/frontend/login.html" class="text-indigo-500 hover:underline"
+            >Login</a
+          >
+        </p>
+      </div>
+    </div>
+  </body>
+  <script>
+    const HandleRegister = () => {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email-register").value;
+      const password = document.getElementById("password-register").value;
+
+      axios
+        .post("http://localhost/Register", {
+          name,
+          email,
+          password,
+        })
+        .then((response) => {
+          console.log(response.data.message);
+          if (response.data.message) {
+            alert(response.data.message);
+          }
+        });
+    };
+  </script>
+</html>

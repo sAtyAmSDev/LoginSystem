@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    welcome bro
+    <p id="name"></p>
+    <p id="email"></p>
+  </body>
+  <script>
+    let name = document.getElementById("name");
+    let email = document.getElementById("email");
+    const token = localStorage.getItem("token");
+    axios.post("http://localhost/verify", { token }).then((res) => {
+      res.data.DBData.name = name.innerHTML;
+      res.data.DBData.email = email.innerHTML;
+
+      console.log(res.data);
+
+      if (!res.data.success) {
+        // res.data.DBData.name = name.innerHTML;
+        // res.data.DBData.email = email.innerHTML;
+        localStorage.removeItem("token");
+        return (window.location.href = "/frontend/login.html");
+      }
+    });
+  </script>
+</html>
